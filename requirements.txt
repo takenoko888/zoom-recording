@@ -1,0 +1,5 @@
+matplotlib>=3.7
+psutil>=5.9
+pywin32>=306
+sounddevice>=0.4.6
+soundfile>=0.12

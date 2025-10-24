@@ -1,0 +1,182 @@
+2025-10-24 23:57:38,098 [INFO] root: 日本語フォントを設定しました: C:\Windows\Fonts\meiryo.ttc
+2025-10-24 23:57:39,889 [INFO] root: プログラムを起動しました。
+2025-10-24 23:57:40,097 [INFO] root: OCR 取得を開始しました。
+2025-10-24 23:57:40,658 [INFO] root: 音声収録を開始しました: C:\Users\石山尊琉\Downloads\zoom自動取得\zoom_auto_capture\output\audio\zoom_audio_20251024_235740.wav
+2025-10-24 23:57:40,687 [INFO] root: 自動取得を開始しました。
+2025-10-24 23:57:40,854 [ERROR] root: OCR 取得中にエラーが発生しました。
+Traceback (most recent call last):
+  File "C:\Users\石山尊琉\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\pytesseract\pytesseract.py", line 255, in run_tesseract
+    proc = subprocess.Popen(cmd_args, **subprocess_args())
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.2800.0_x64__qbz5n2kfra8p0\Lib\subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.2800.0_x64__qbz5n2kfra8p0\Lib\subprocess.py", line 1538, in _execute_child
+    hp, ht, pid, tid = _winapi.CreateProcess(executable, args,
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [WinError 2] 指定されたファイルが見つかりません。
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "c:\Users\石山尊琉\Downloads\zoom自動取得\zoom_auto_capture\ocr.py", line 103, in _run_loop
+    result = self._capture_once(sct)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\石山尊琉\Downloads\zoom自動取得\zoom_auto_capture\ocr.py", line 130, in _capture_once
+    text = pytesseract.image_to_string(grayscale, lang="jpn+eng")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\石山尊琉\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\pytesseract\pytesseract.py", line 423, in image_to_string
+    return {
+           ^
+  File "C:\Users\石山尊琉\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\pytesseract\pytesseract.py", line 426, in <lambda>
+    Output.STRING: lambda: run_and_get_output(*args),
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\石山尊琉\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\pytesseract\pytesseract.py", line 288, in run_and_get_output
+    run_tesseract(**kwargs)
+  File "C:\Users\石山尊琉\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\pytesseract\pytesseract.py", line 260, in run_tesseract
+    raise TesseractNotFoundError()
+pytesseract.pytesseract.TesseractNotFoundError: tesseract is not installed or it's not in your PATH. See README file for more information.
+2025-10-24 23:57:45,286 [ERROR] root: OCR 取得中にエラーが発生しました。
+Traceback (most recent call last):
+  File "C:\Users\石山尊琉\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\pytesseract\pytesseract.py", line 255, in run_tesseract
+    proc = subprocess.Popen(cmd_args, **subprocess_args())
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.2800.0_x64__qbz5n2kfra8p0\Lib\subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.2800.0_x64__qbz5n2kfra8p0\Lib\subprocess.py", line 1538, in _execute_child
+    hp, ht, pid, tid = _winapi.CreateProcess(executable, args,
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [WinError 2] 指定されたファイルが見つかりません。
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "c:\Users\石山尊琉\Downloads\zoom自動取得\zoom_auto_capture\ocr.py", line 103, in _run_loop
+    result = self._capture_once(sct)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\石山尊琉\Downloads\zoom自動取得\zoom_auto_capture\ocr.py", line 130, in _capture_once
+    text = pytesseract.image_to_string(grayscale, lang="jpn+eng")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\石山尊琉\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\pytesseract\pytesseract.py", line 423, in image_to_string
+    return {
+           ^
+  File "C:\Users\石山尊琉\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\pytesseract\pytesseract.py", line 426, in <lambda>
+    Output.STRING: lambda: run_and_get_output(*args),
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\石山尊琉\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\pytesseract\pytesseract.py", line 288, in run_and_get_output
+    run_tesseract(**kwargs)
+  File "C:\Users\石山尊琉\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\pytesseract\pytesseract.py", line 260, in run_tesseract
+    raise TesseractNotFoundError()
+pytesseract.pytesseract.TesseractNotFoundError: tesseract is not installed or it's not in your PATH. See README file for more information.
+2025-10-24 23:57:48,785 [INFO] root: 自動取得を開始しました。
+2025-10-24 23:57:50,292 [ERROR] root: OCR 取得中にエラーが発生しました。
+Traceback (most recent call last):
+  File "C:\Users\石山尊琉\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\pytesseract\pytesseract.py", line 255, in run_tesseract
+    proc = subprocess.Popen(cmd_args, **subprocess_args())
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.2800.0_x64__qbz5n2kfra8p0\Lib\subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.2800.0_x64__qbz5n2kfra8p0\Lib\subprocess.py", line 1538, in _execute_child
+    hp, ht, pid, tid = _winapi.CreateProcess(executable, args,
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [WinError 2] 指定されたファイルが見つかりません。
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "c:\Users\石山尊琉\Downloads\zoom自動取得\zoom_auto_capture\ocr.py", line 103, in _run_loop
+    result = self._capture_once(sct)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\石山尊琉\Downloads\zoom自動取得\zoom_auto_capture\ocr.py", line 130, in _capture_once
+    text = pytesseract.image_to_string(grayscale, lang="jpn+eng")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\石山尊琉\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\pytesseract\pytesseract.py", line 423, in image_to_string
+    return {
+           ^
+  File "C:\Users\石山尊琉\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\pytesseract\pytesseract.py", line 426, in <lambda>
+    Output.STRING: lambda: run_and_get_output(*args),
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\石山尊琉\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\pytesseract\pytesseract.py", line 288, in run_and_get_output
+    run_tesseract(**kwargs)
+  File "C:\Users\石山尊琉\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\pytesseract\pytesseract.py", line 260, in run_tesseract
+    raise TesseractNotFoundError()
+pytesseract.pytesseract.TesseractNotFoundError: tesseract is not installed or it's not in your PATH. See README file for more information.
+2025-10-24 23:57:55,848 [ERROR] root: OCR 取得中にエラーが発生しました。
+Traceback (most recent call last):
+  File "C:\Users\石山尊琉\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\pytesseract\pytesseract.py", line 255, in run_tesseract
+    proc = subprocess.Popen(cmd_args, **subprocess_args())
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.2800.0_x64__qbz5n2kfra8p0\Lib\subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.2800.0_x64__qbz5n2kfra8p0\Lib\subprocess.py", line 1538, in _execute_child
+    hp, ht, pid, tid = _winapi.CreateProcess(executable, args,
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [WinError 2] 指定されたファイルが見つかりません。
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "c:\Users\石山尊琉\Downloads\zoom自動取得\zoom_auto_capture\ocr.py", line 103, in _run_loop
+    result = self._capture_once(sct)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\石山尊琉\Downloads\zoom自動取得\zoom_auto_capture\ocr.py", line 130, in _capture_once
+    text = pytesseract.image_to_string(grayscale, lang="jpn+eng")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\石山尊琉\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\pytesseract\pytesseract.py", line 423, in image_to_string
+    return {
+           ^
+  File "C:\Users\石山尊琉\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\pytesseract\pytesseract.py", line 426, in <lambda>
+    Output.STRING: lambda: run_and_get_output(*args),
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\石山尊琉\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\pytesseract\pytesseract.py", line 288, in run_and_get_output
+    run_tesseract(**kwargs)
+  File "C:\Users\石山尊琉\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\pytesseract\pytesseract.py", line 260, in run_tesseract
+    raise TesseractNotFoundError()
+pytesseract.pytesseract.TesseractNotFoundError: tesseract is not installed or it's not in your PATH. See README file for more information.
+2025-10-24 23:58:07,109 [ERROR] root: OCR 取得中にエラーが発生しました。
+Traceback (most recent call last):
+  File "C:\Users\石山尊琉\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\pytesseract\pytesseract.py", line 255, in run_tesseract
+    proc = subprocess.Popen(cmd_args, **subprocess_args())
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.2800.0_x64__qbz5n2kfra8p0\Lib\subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.2800.0_x64__qbz5n2kfra8p0\Lib\subprocess.py", line 1538, in _execute_child
+    hp, ht, pid, tid = _winapi.CreateProcess(executable, args,
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [WinError 2] 指定されたファイルが見つかりません。
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "c:\Users\石山尊琉\Downloads\zoom自動取得\zoom_auto_capture\ocr.py", line 103, in _run_loop
+    result = self._capture_once(sct)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\石山尊琉\Downloads\zoom自動取得\zoom_auto_capture\ocr.py", line 130, in _capture_once
+    text = pytesseract.image_to_string(grayscale, lang="jpn+eng")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\石山尊琉\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\pytesseract\pytesseract.py", line 423, in image_to_string
+    return {
+           ^
+  File "C:\Users\石山尊琉\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\pytesseract\pytesseract.py", line 426, in <lambda>
+    Output.STRING: lambda: run_and_get_output(*args),
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\石山尊琉\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\pytesseract\pytesseract.py", line 288, in run_and_get_output
+    run_tesseract(**kwargs)
+  File "C:\Users\石山尊琉\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\pytesseract\pytesseract.py", line 260, in run_tesseract
+    raise TesseractNotFoundError()
+pytesseract.pytesseract.TesseractNotFoundError: tesseract is not installed or it's not in your PATH. See README file for more information.
+2025-10-24 23:58:07,109 [INFO] root: OCR 取得を終了しました。
+2025-10-24 23:58:07,446 [INFO] root: 音声収録を終了しました: C:\Users\石山尊琉\Downloads\zoom自動取得\zoom_auto_capture\output\audio\zoom_audio_20251024_235740.wav
+2025-10-24 23:58:07,446 [INFO] root: 自動取得を停止しました。
+2025-10-24 23:58:07,462 [INFO] root: 自動取得を停止しました。
+2025-10-25 00:04:17,508 [INFO] root: 日本語フォントを設定しました: C:\Windows\Fonts\meiryob.ttc
+2025-10-25 00:04:17,682 [INFO] root: プログラムを起動しました。
+2025-10-25 00:04:17,889 [ERROR] root: Tesseract の実行ファイルが見つからないため OCR を利用できません。Tesseract をインストールするか、環境変数 TESSERACT_CMD でパスを指定してください。
+2025-10-25 00:04:18,096 [INFO] root: 音声収録を開始しました: C:\Users\石山尊琉\Downloads\zoom自動取得\zoom_auto_capture\output\audio\zoom_audio_20251025_000417.wav
+2025-10-25 00:04:18,098 [INFO] root: 自動取得を開始しました。
+2025-10-25 00:04:33,641 [INFO] root: 自動取得を開始しました。
+2025-10-25 00:05:33,660 [INFO] root: 音声収録を終了しました: C:\Users\石山尊琉\Downloads\zoom自動取得\zoom_auto_capture\output\audio\zoom_audio_20251025_000417.wav
+2025-10-25 00:05:33,660 [INFO] root: 自動取得を停止しました。
+2025-10-25 00:12:49,782 [INFO] root: 日本語フォントを設定しました: C:\Windows\Fonts\meiryob.ttc
+2025-10-25 00:12:51,202 [INFO] root: プログラムを起動しました。
+2025-10-25 00:12:51,408 [INFO] root: Zoom 監視を開始しました。
+2025-10-25 00:13:03,360 [INFO] root: 自動取得を停止しました。
