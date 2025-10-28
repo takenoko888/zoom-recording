@@ -7,7 +7,8 @@ import webbrowser
 
 from . import config
 from .audio import AudioRecorder, AudioStatus
-from .process_utils import get_zoom_meeting_title, is_zoom_running, sanitize_meeting_title
+from .process_utils import get_zoom_meeting_title, is_zoom_running, sanitize_meeting_title, slugify_title
+from .screenshot import ScreenshotCapture, ScreenshotStatus
 
 
 class ZoomRecorderProgram:
@@ -19,10 +20,15 @@ class ZoomRecorderProgram:
         self.audio = AudioRecorder()
         self.audio.register_status_callback(self._handle_audio_status)
 
+        self.screenshot = ScreenshotCapture()
+        self.screenshot.register_status_callback(self._handle_screenshot_status)
+
         self._monitoring = False
         self._zoom_running = False
         self._audio_warning_shown = False
+        self._screenshot_warning_shown = False
         self._latest_audio_status = self.audio.status
+        self._latest_screenshot_status = self.screenshot.status
         self._last_meeting_title = None
 
         self._status_var = tk.StringVar(value="停止中")
@@ -30,6 +36,7 @@ class ZoomRecorderProgram:
         self._zoom_var = tk.StringVar(value="Zoom: 未検出")
         self._meeting_title_var = tk.StringVar(value="会議タイトル: 未検出")
         self._duration_var = tk.StringVar(value="録音時間: 00:00:00 / 00:00:00")
+        self._screenshot_var = tk.StringVar(value="スクリーンショット: 0 枚")
 
         self._build_layout()
         self._schedule_status_refresh()
@@ -51,19 +58,20 @@ class ZoomRecorderProgram:
             row=4, column=0, columnspan=3, sticky="w", **padding
         )
         ttk.Label(self.root, textvariable=self._duration_var).grid(row=5, column=0, columnspan=3, sticky="w", **padding)
+        ttk.Label(self.root, textvariable=self._screenshot_var).grid(row=6, column=0, columnspan=3, sticky="w", **padding)
 
-        ttk.Label(self.root, text="音声レベル").grid(row=6, column=0, sticky="w", **padding)
+        ttk.Label(self.root, text="音声レベル").grid(row=7, column=0, sticky="w", **padding)
         self._vu_meter = ttk.Progressbar(self.root, orient="horizontal", mode="determinate", maximum=100)
-        self._vu_meter.grid(row=6, column=1, columnspan=2, sticky="ew", **padding)
+        self._vu_meter.grid(row=7, column=1, columnspan=2, sticky="ew", **padding)
 
         self.start_button = ttk.Button(self.root, text="開始", command=self.start_capture)
-        self.start_button.grid(row=7, column=0, sticky="ew", **padding)
+        self.start_button.grid(row=8, column=0, sticky="ew", **padding)
 
         self.stop_button = ttk.Button(self.root, text="停止", command=self.stop_capture)
-        self.stop_button.grid(row=7, column=1, sticky="ew", **padding)
+        self.stop_button.grid(row=8, column=1, sticky="ew", **padding)
 
         open_button = ttk.Button(self.root, text="出力フォルダを開く", command=self._open_output)
-        open_button.grid(row=7, column=2, sticky="ew", **padding)
+        open_button.grid(row=8, column=2, sticky="ew", **padding)
 
     def start_capture(self) -> None:
         self._start_monitor(auto=False)
@@ -99,6 +107,8 @@ class ZoomRecorderProgram:
         self._monitoring = False
         if self.audio.is_running:
             self.audio.stop()
+        if self.screenshot.is_running:
+            self.screenshot.stop()
         self._status_var.set("停止中")
         logging.info("自動取得を停止しました。")
 
@@ -114,6 +124,9 @@ class ZoomRecorderProgram:
         self._meeting_title_var.set(self._meeting_title_text(status.meeting_title))
         self._update_status_label_from_audio(status)
         self._update_vu_meter(status)
+        
+        screenshot_status = self._latest_screenshot_status
+        self._screenshot_var.set(self._format_screenshot_text(screenshot_status))
 
     def _audio_status_text(self) -> str:
         if not self.audio.is_available:
@@ -161,10 +174,25 @@ class ZoomRecorderProgram:
                     self._status_var.set("Zoom起動中 – 音声利用不可")
             else:
                 self._status_var.set("Zoom起動中 – 録音中")
+            
+            # Start screenshot capture if available
+            if not self.screenshot.is_running and self.screenshot.is_available:
+                meeting_title_display = sanitize_meeting_title(self._last_meeting_title)
+                if meeting_title_display == config.DEFAULT_MEETING_SLUG:
+                    meeting_title_display = "未検出"
+                meeting_title_slug = slugify_title(self._last_meeting_title)
+                self.screenshot.start(meeting_title_display, meeting_title_slug)
+                logging.info("Zoom が起動したためスクリーンショット取得を開始しました。")
+            elif not self.screenshot.is_available and not self._screenshot_warning_shown:
+                logging.warning("mss / Pillow が見つからないためスクリーンショット取得をスキップします。")
+                self._screenshot_warning_shown = True
         else:
             if self.audio.is_running:
                 self.audio.stop()
                 logging.info("Zoom が終了したため音声収録を停止しました。")
+            if self.screenshot.is_running:
+                self.screenshot.stop()
+                logging.info("Zoom が終了したためスクリーンショット取得を停止しました。")
             self._last_meeting_title = None
             self._meeting_title_var.set(self._meeting_title_text(None))
             self._status_var.set("Zoom待機中")
@@ -223,3 +251,9 @@ class ZoomRecorderProgram:
         level = max(config.VU_METER_MIN_DB, min(status.level_db, config.VU_METER_MAX_DB))
         ratio = (level - config.VU_METER_MIN_DB) / span
         self._vu_meter["value"] = max(0.0, min(100.0, ratio * 100))
+
+    def _handle_screenshot_status(self, status: ScreenshotStatus) -> None:
+        self._latest_screenshot_status = status
+
+    def _format_screenshot_text(self, status: ScreenshotStatus) -> str:
+        return f"スクリーンショット: {status.screenshot_count} 枚"
