@@ -129,3 +129,51 @@ def slugify_title(title: Optional[str]) -> str:
     if len(slug) > config.MEETING_TITLE_MAX_LENGTH:
         slug = slug[: config.MEETING_TITLE_MAX_LENGTH].rstrip("_-")
     return slug or config.DEFAULT_MEETING_SLUG
+
+
+def get_zoom_screen_share_window() -> Optional[tuple[int, str]]:
+    """
+    Get the Zoom screen share window handle and title.
+    Returns (hwnd, title) if screen share window is found, None otherwise.
+    """
+    global _win32_warning_emitted
+
+    if win32gui is None or win32process is None:
+        if not _win32_warning_emitted:
+            logging.debug("pywin32 が見つからないため Zoom のウィンドウを取得できません。")
+            _win32_warning_emitted = True
+        return None
+
+    pids = _collect_zoom_pids()
+    if not pids:
+        return None
+
+    screen_share_windows: list[tuple[int, str]] = []
+
+    def _callback(hwnd: int, _param) -> bool:
+        if not win32gui.IsWindow(hwnd) or not win32gui.IsWindowVisible(hwnd):
+            return True
+        if win32gui.IsIconic(hwnd):
+            return True
+        _, pid = win32process.GetWindowThreadProcessId(hwnd)
+        if pid not in pids:
+            return True
+        title = win32gui.GetWindowText(hwnd).strip()
+        if not title:
+            return True
+        
+        # Check if this is a screen share window
+        # Common patterns: "画面を共有しています", "Screen Share", "画面の共有"
+        share_keywords = ["画面を共有", "screen share", "画面の共有", "sharing screen"]
+        if any(keyword in title.lower() for keyword in share_keywords):
+            screen_share_windows.append((hwnd, title))
+        
+        return True
+
+    win32gui.EnumWindows(_callback, None)
+
+    if not screen_share_windows:
+        return None
+
+    # Return the first screen share window found
+    return screen_share_windows[0]
